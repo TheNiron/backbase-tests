@@ -1,0 +1,23 @@
+{
+  "name": "e2e-ui-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:chrome": "cypress run --browser chrome",
+    "combine:report": "mochawesome-merge ./mochawesome-report/*.json -o index.json",
+    "generate:report": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/mocha-teamcity-reporter": "^1.0.0",
+    "@testing-library/cypress": "^8.0.3",
+    "cypress": "^10.3.0",
+    "cypress-mochawesome-reporter": "^3.2.0",
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

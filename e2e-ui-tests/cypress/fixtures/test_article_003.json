@@ -1,0 +1,24 @@
+[
+{   
+    "test_name": "Without Title",
+    "article_title": "{backspace}",
+    "article_about": "Zoo animals are trapped by design. ",
+    "article_content": "Animals are often the forgotten victims of conflicts and wars.",
+    "error_message": "Article must have a Title"
+  },
+  {   
+    "test_name": "Without about field",
+    "article_title": "How to Keep your Rabbits Cool in Summer1",
+    "article_about": "{backspace}",
+    "article_content": "Animals are often the forgotten victims of conflicts and wars.",
+    "error_message": "Article must have an about description"
+  },
+  {   
+    "test_name": "Without article content",
+    "article_title": "How to Keep your Rabbits Cool in Summer2",
+    "article_about": "Zoo animals are trapped by design. ",
+    "article_content": "{backspace}",
+    "error_message": "Article must have Content in the body"
+  }
+
+]
