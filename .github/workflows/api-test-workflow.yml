@@ -16,10 +16,8 @@ jobs:
 
       - name: Run Test
         if: always()
-        run: mvn package
+        run: cd api-tests & mvn package
         continue-on-error: true
-        with:
-          working-directory: api-tests
 
       - name: Get Allure history
         uses: actions/checkout@v2
