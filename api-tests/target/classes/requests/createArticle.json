@@ -1,8 +1,0 @@
-{
-  "article": {
-    "title": "%s",
-    "description": "%s",
-    "body": "%s",
-    "tagList": ["%s"]
-  }
-}
