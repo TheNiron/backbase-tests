@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Backbase API Tests">
+    <test thread-count="5" name="Articles Testcases" parallel="methods">
+        <classes>
+            <class name="articles.ArticleCreationTest"/>
+            <class name="articles.ArticleUpdateTest"/>
+            <class name="articles.ArticleDeletionTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test thread-count="5" name="Comments Testcases">
+        <classes>
+            <class name="comments.CommentsPostTest"/>
+            <class name="comments.CommentsRetrieveTest"/>
+            <class name="comments.CommentsDeleteTest"/>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
