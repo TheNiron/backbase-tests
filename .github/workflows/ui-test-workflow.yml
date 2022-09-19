@@ -14,8 +14,6 @@ jobs:
         continue-on-error: true
         with:
           working-directory: e2e-ui-tests
-          build: npm install
-          runTests: false
           start: npx cypress run --browser electron
 
       # - name: Copy test execution videos and screenshots
