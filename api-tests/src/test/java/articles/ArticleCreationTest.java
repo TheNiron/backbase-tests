@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import services.Article;
 import services.Authentication;
-import utils.Common;
+import utils.Validations;
 import utils.CommonUtils;
 import utils.Constants;
 
@@ -51,19 +51,19 @@ public class ArticleCreationTest extends Authentication {
 
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate the essentials fields in response body
-        Common.ValidateValuesInResponseBody(Constants.USERNAME,Constants.AUTHOR_USERNAME_JSONPATH,response);
-        Common.ValidateValuesInResponseBody(articleTitle,Constants.ARTICLE_TITLE_JSONPATH,response);
-        Common.ValidateValuesInResponseBody(articleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,response);
-        Common.ValidateValuesInResponseBody(articleContent,Constants.ARTICLE_BODY_JSONPATH,response);
-        Common.ValidateValuesInResponseBody(articleTag,Constants.ARTICLE_TAG_JSONPATH,response);
-        Common.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,response);
+        Validations.ValidateValuesInResponseBody(Constants.USERNAME,Constants.AUTHOR_USERNAME_JSONPATH,response);
+        Validations.ValidateValuesInResponseBody(articleTitle,Constants.ARTICLE_TITLE_JSONPATH,response);
+        Validations.ValidateValuesInResponseBody(articleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,response);
+        Validations.ValidateValuesInResponseBody(articleContent,Constants.ARTICLE_BODY_JSONPATH,response);
+        Validations.ValidateValuesInResponseBody(articleTag,Constants.ARTICLE_TAG_JSONPATH,response);
+        Validations.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,response);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -80,18 +80,18 @@ public class ArticleCreationTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke update article request");
         Response updateResponse = article.updateArticle(slug, updatedArticleTitle, updatedArticleAbout, updatedArticleContent, updatedArticleTag, jwtToken);
-        Common.ValidateResponseCode(updateResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(updateResponse.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate the response of update request
-        Common.ValidateValuesInResponseBody(updatedArticleTitle,Constants.ARTICLE_TITLE_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleContent,Constants.ARTICLE_BODY_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleTag,Constants.ARTICLE_TAG_JSONPATH,updateResponse);
-        Common.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleTitle,Constants.ARTICLE_TITLE_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleContent,Constants.ARTICLE_BODY_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleTag,Constants.ARTICLE_TAG_JSONPATH,updateResponse);
+        Validations.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,updateResponse);
 
         logger.log(Level.INFO, "Invoke delete article request");
         article.deleteArticle(slug,jwtToken);
@@ -107,13 +107,13 @@ public class ArticleCreationTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slugOfFirstArticle = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke second create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slugOfSecondArticle = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke delete articles request");
@@ -132,7 +132,7 @@ public class ArticleCreationTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, invalidJWT);
         //Validate response code is 401
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_401);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_401);
     }
 
 }

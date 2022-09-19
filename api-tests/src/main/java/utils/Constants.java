@@ -16,7 +16,6 @@ public class Constants {
 	public static final String FILE_PATH = "src/main/resources/";
 	public static final String REQUESTS_DIR = "requests/";
 	public static final String ARTICLES_DIR = "articles/";
-
 	public static final String ARTICLES_TITLE = "article_title";
 	public static final String ARTICLES_ABOUT = "article_about";
 	public static final String ARTICLES_CONTENT = "article_content";
@@ -37,7 +36,6 @@ public class Constants {
 	public static final String NEW_ARTICLE = "article_001_new_article";
 	public static final String FULLY_UPDATED_ARTICLE = "article_002_full_updated_article";
 	public static final String COMMENT_RESOURCE_PATH = "/api/articles/%s/comments";
-
 	public static final String COMMENT_ID_JSONPATH = "comment.id";
 	public static final String COMMENT_BODY_JSONPATH = "comment.body";
 	public static final String COMMENT_AUTHOR_JSONPATH = "comment.author.username";

@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import services.Article;
 import services.Authentication;
-import utils.Common;
+import utils.Validations;
 import utils.CommonUtils;
 import utils.Constants;
 
@@ -48,12 +48,12 @@ public class ArticleDeletionTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -66,14 +66,14 @@ public class ArticleDeletionTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke delete article request twice");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
         deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_404);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_404);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ArticleDeletionTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         //Generate JWT token from another user
@@ -97,6 +97,6 @@ public class ArticleDeletionTest extends Authentication {
         //Delete the created article with newly generated JWT token
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_403);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_403);
     }
 }

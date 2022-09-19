@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import services.Article;
 import services.Authentication;
 import services.Comments;
-import utils.Common;
+import utils.Validations;
 import utils.CommonUtils;
 import utils.Constants;
 
@@ -53,22 +53,22 @@ public class CommentsRetrieveTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         String commentId = commentResponse.body().jsonPath().getString(Constants.COMMENT_ID_JSONPATH);
 
         logger.log(Level.INFO, "Invoke retrieve comments request");
         Response commentGetResponse = comments.getComment(slug,jwtToken);
-        Common.ValidateResponseCode(commentGetResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentGetResponse.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate retrieved comments contain the posted comment
-        Common.ValidateValuesAreNotEqual(commentGetResponse.body().jsonPath().getString("comments"),commentId,"Response didn't contain the comment ID: "+commentId);
+        Validations.ValidateValuesAreNotEqual(commentGetResponse.body().jsonPath().getString("comments"),commentId,"Response didn't contain the comment ID: "+commentId);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 }

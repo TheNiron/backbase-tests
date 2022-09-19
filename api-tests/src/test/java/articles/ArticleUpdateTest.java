@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import services.Article;
 import services.Authentication;
-import utils.Common;
+import utils.Validations;
 import utils.CommonUtils;
 import utils.Constants;
 
@@ -54,18 +54,18 @@ public class ArticleUpdateTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke update article request");
         Response updateResponse = article.updateArticle(slug, updatedArticleTitle, updatedArticleAbout, updatedArticleContent, updatedArticleTag, jwtToken);
-        Common.ValidateResponseCode(updateResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(updateResponse.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate the response of update request
-        Common.ValidateValuesInResponseBody(updatedArticleTitle,Constants.ARTICLE_TITLE_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleContent,Constants.ARTICLE_BODY_JSONPATH,updateResponse);
-        Common.ValidateValuesInResponseBody(updatedArticleTag,Constants.ARTICLE_TAG_JSONPATH,updateResponse);
-        Common.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleTitle,Constants.ARTICLE_TITLE_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleAbout,Constants.ARTICLE_DESCRIPTION_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleContent,Constants.ARTICLE_BODY_JSONPATH,updateResponse);
+        Validations.ValidateValuesInResponseBody(updatedArticleTag,Constants.ARTICLE_TAG_JSONPATH,updateResponse);
+        Validations.ValidateValueExist(Constants.ARTICLE_SLUG_JSONPATH,updateResponse);
 
         logger.log(Level.INFO, "Invoke delete article request");
         article.deleteArticle(slug,jwtToken);

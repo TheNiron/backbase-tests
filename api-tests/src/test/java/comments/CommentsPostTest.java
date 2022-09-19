@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import services.Article;
 import services.Authentication;
 import services.Comments;
-import utils.Common;
+import utils.Validations;
 import utils.CommonUtils;
 import utils.Constants;
 
@@ -53,20 +53,20 @@ public class CommentsPostTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate the fields in comments response body
-        Common.ValidateValuesInResponseBody(Constants.USERNAME,Constants.COMMENT_AUTHOR_JSONPATH,commentResponse);
-        Common.ValidateValueExist(Constants.COMMENT_ID_JSONPATH,commentResponse);
-        Common.ValidateValuesInResponseBody(commentText,Constants.COMMENT_BODY_JSONPATH,commentResponse);
+        Validations.ValidateValuesInResponseBody(Constants.USERNAME,Constants.COMMENT_AUTHOR_JSONPATH,commentResponse);
+        Validations.ValidateValueExist(Constants.COMMENT_ID_JSONPATH,commentResponse);
+        Validations.ValidateValuesInResponseBody(commentText,Constants.COMMENT_BODY_JSONPATH,commentResponse);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CommentsPostTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         //Generate JWT token from another user
@@ -89,14 +89,14 @@ public class CommentsPostTest extends Authentication {
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken2,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         //Validate the fields in comments response body
-        Common.ValidateValueExist(Constants.COMMENT_ID_JSONPATH,commentResponse);
-        Common.ValidateValuesInResponseBody(commentText,Constants.COMMENT_BODY_JSONPATH,commentResponse);
+        Validations.ValidateValueExist(Constants.COMMENT_ID_JSONPATH,commentResponse);
+        Validations.ValidateValuesInResponseBody(commentText,Constants.COMMENT_BODY_JSONPATH,commentResponse);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -110,21 +110,21 @@ public class CommentsPostTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         String commentId = commentResponse.body().jsonPath().getString(Constants.COMMENT_ID_JSONPATH);
 
         logger.log(Level.INFO, "Invoke delete a comment request");
         Response commentDeleteResponse = comments.deleteComment(slug,jwtToken,commentId);
-        Common.ValidateResponseCode(commentDeleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(commentDeleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -138,12 +138,12 @@ public class CommentsPostTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         String commentId = commentResponse.body().jsonPath().getString(Constants.COMMENT_ID_JSONPATH);
 
         //Generate JWT token from another user
@@ -152,11 +152,11 @@ public class CommentsPostTest extends Authentication {
 
         logger.log(Level.INFO, "Invoke delete a comment request");
         Response commentDeleteResponse = comments.deleteComment(slug,jwtToken2,commentId);
-        Common.ValidateResponseCode(commentDeleteResponse.getStatusCode(),Constants.STATUS_CODE_403);
+        Validations.ValidateResponseCode(commentDeleteResponse.getStatusCode(),Constants.STATUS_CODE_403);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 
     @Test
@@ -170,22 +170,22 @@ public class CommentsPostTest extends Authentication {
         logger.log(Level.INFO, "Invoke create article request");
         response = article.createArticleRequest(articleTitle, articleAbout, articleContent, articleTag, jwtToken);
         //Validate response code is 200
-        Common.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(response.getStatusCode(),Constants.STATUS_CODE_200);
         String slug = response.body().jsonPath().getString(Constants.ARTICLE_SLUG_JSONPATH);
 
         logger.log(Level.INFO, "Invoke post a comment request");
         Response commentResponse = comments.addComment(slug, jwtToken,commentText);
-        Common.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentResponse.getStatusCode(),Constants.STATUS_CODE_200);
         String commentId = commentResponse.body().jsonPath().getString(Constants.COMMENT_ID_JSONPATH);
 
         logger.log(Level.INFO, "Invoke retrieve comments request");
         Response commentGetResponse = comments.getComment(slug,jwtToken);
-        Common.ValidateResponseCode(commentGetResponse.getStatusCode(),Constants.STATUS_CODE_200);
+        Validations.ValidateResponseCode(commentGetResponse.getStatusCode(),Constants.STATUS_CODE_200);
 //        Validate retrieved comments contain the posted comment
-        Common.ValidateValuesAreNotEqual(commentGetResponse.body().jsonPath().getString("comments"),commentId,"Response didn't contain the comment ID: "+commentId);
+        Validations.ValidateValuesAreNotEqual(commentGetResponse.body().jsonPath().getString("comments"),commentId,"Response didn't contain the comment ID: "+commentId);
 
         logger.log(Level.INFO, "Invoke delete article request");
         Response deleteResponse = article.deleteArticle(slug,jwtToken);
-        Common.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
+        Validations.ValidateResponseCode(deleteResponse.getStatusCode(),Constants.STATUS_CODE_204);
     }
 }

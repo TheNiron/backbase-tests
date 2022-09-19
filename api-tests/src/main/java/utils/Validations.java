@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 
 
-public class Common {
+public class Validations {
     Response response;
     public static void ValidateResponseCode(int actualCode, int expectedCode) {
         Assert.assertEquals(actualCode, expectedCode);
