@@ -31,11 +31,6 @@ public class CommentsDeleteTest extends Authentication {
     Comments comments = new Comments();
     Article article = new Article();
 
-    @BeforeClass
-    public void printAll(){
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-    }
-
     @BeforeMethod
     public void generateToken() throws IOException {
         logger.log(Level.INFO, "Generating JWT token");
