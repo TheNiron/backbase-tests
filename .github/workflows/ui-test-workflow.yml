@@ -1,0 +1,37 @@
+name: Cypress UI Test Backbase
+
+on: [ push ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies.
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        continue-on-error: true
+        with:
+          working-directory: e2e-ui-tests
+          start: npx cypress run --browser electron
+
+      # - name: Copy test execution videos and screenshots
+      #   run: |
+      #     mkdir public
+      #     cp -r e2e-ui-tests/cypress/videos public/videos
+      #     cp -r e2e-ui-tests/cypress/screenshots public/screenshots
+
+      # - name: Merge test reports
+      #   run: npm run combine:report
+      #   working-directory: e2e-ui-tests
+
+      # - name: Generate HTML report
+      #   run: npm run generate:report
+      #   working-directory: e2e-ui-tests
+
+      # - name: Deploy report page to GitHub Page
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
