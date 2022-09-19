@@ -1,4 +1,11 @@
-# Backbase-Automated-Tests
+# Backbase-Automated-UI-Tests
+
+##  Description
+
+The UI E2E test automation framework is developed with Cypress. Scope of the current automated UI tests cover the following functionalities,
+1. Article creation
+2. Posting comments
+
 
 ## Run E2E UI tests in Local
 

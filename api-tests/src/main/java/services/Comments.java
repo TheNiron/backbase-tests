@@ -14,7 +14,6 @@ public class Comments {
     RequestSpecification httpDeleteRequest;
     RequestSpecification httpGetRequest;
     Response response;
-
     CommonUtils utils = new CommonUtils();
 
     public Response addComment(String slug, String jwtAuth,String comment) throws IOException {

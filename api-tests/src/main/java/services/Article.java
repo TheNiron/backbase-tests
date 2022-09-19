@@ -46,7 +46,6 @@ public class Article {
                 .header(Constants.JWT_AUTHORIZATION_HEADER, jwtAuth)
                 .header(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON)
                 .body(String.format(utils.readFile(Constants.REQUESTS_DIR +"createArticle.json"), articleTitle, articleAbout, articleContent, articleTag))
-//                .body(String.format(readResourceContent("updateFullArticleRequestBodyNoTags.json"), articleTitle, articleDesc, articleBody))
                 .put(Constants.ARTICLE_RESOURCE_PATH + "/" + slug);
 
         return response;
