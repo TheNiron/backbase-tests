@@ -16,6 +16,7 @@ jobs:
           working-directory: e2e-ui-tests
           start: npx cypress run --browser electron
 
+# The following report generation and deploying steps are commented cause we already deploy the API test allure reports to GH-pages
       # - name: Copy test execution videos and screenshots
       #   run: |
       #     mkdir public
