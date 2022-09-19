@@ -5,7 +5,7 @@ module.exports = {
     setupNodeEvents (on, config) {
       require('cypress-mochawesome-reporter/plugin')(on)
     },
-    videoCompression: 0,
+    video: false,
     env: {
       userName: 'candidatex',
       password: 'qa-is-cool',
